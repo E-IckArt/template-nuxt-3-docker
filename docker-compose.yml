@@ -1,0 +1,23 @@
+services:
+  nuxt:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+          - NODE_ENV=development
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /var/www/html
+    command: npm run dev
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
